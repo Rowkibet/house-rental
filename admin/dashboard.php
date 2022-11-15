@@ -57,20 +57,23 @@
                             <th>#</th>
                             <th>Tenant Name</th>
                             <th>receipt no.</th>
+                            <th>House No.</th>
                             <th>amount paid</th>
+                            <th>Date Paid</th>
                             <th>Balance</th>
                             <th>Due Date</th>
-                            <th>House No.</th>
                         </tr>
                         <?php foreach(array_slice($payments, 0, 4) as $key => $payment) : ?>
                             <tr>
                                 <td><?php echo $key + 1 . "." ?></td>
                                 <td><?php echo $payment['first_name'] . " " . $payment['last_name']; ?></td>
                                 <td><?php echo $payment['receipt_no']; ?></td>
+                                <td><?php echo $payment['house_id']; ?></td>
                                 <td><?php echo $payment['amount']; ?></td>
+                                <td><?php echo $payment['payment_date']; ?></td>
                                 <td><?php echo $payment['balance']; ?></td>
                                 <td><?php echo $payment['due_date']; ?></td>
-                                <td><?php echo $payment['house_id']; ?></td>
+
                             </tr>
                         <?php endforeach; ?>
                     </table>

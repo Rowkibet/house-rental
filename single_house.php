@@ -30,7 +30,7 @@
             <p>House Rent: <?php echo $house_rent; ?></p>
             <p>House Deposit: <?php echo $house_deposit; ?></p>
 
-            <button class="small-btn"><a href="pay_deposit.php?book_house_id=<?php echo $house_id; ?>">Book House</a></button>
+            <button class="small-btn"><a href="pay_deposit.php?book_house_id=<?php echo $house_id; ?>&tenant_id=<?php echo $_SESSION['tenant_id']; ?>">Book House</a></button>
         </div>
     </div>
 

@@ -7,22 +7,26 @@ $sql = "SELECT c.*, t.first_name, t.last_name, rpt.name AS rentPerTerms, h.id AS
         JOIN tenants AS t ON c.tenant_id=t.id 
         JOIN rent_per_terms AS rpt ON c.rent_per_terms_id=rpt.id 
         JOIN houses AS h ON c.house_id=h.id
-        JOIN house_type AS ht ON h.house_type_id=ht.id";
+        JOIN house_type AS ht ON h.house_type_id=ht.id
+        ORDER BY c.id DESC";
 $allContracts = executeJoinQuery($sql);
 
 // retrieve one of the contracts for specified tenant
-$tenant_id = $_SESSION['tenant_id'];
-$contract = selectOne($table, ['tenant_id' => $tenant_id]);
+if(isset($_SESSION['tenant_id'])) {
+	$tenant_id = $_SESSION['tenant_id'];
+	$contract = selectOne($table, ['tenant_id' => $tenant_id]);
+}
 
 // retrieve all contracts for specified tenant (user_profile page)
 if(isset($_SESSION['tenant_id'])) {
 	$tenant_id = $_SESSION['tenant_id'];
 	$sql = "SELECT c.*, t.first_name, t.last_name, rpt.name AS rentPerTerms, h.id AS house_id, ht.rent FROM contracts AS c 
-			JOIN tenants AS t ON c.tenant_id=t.id 
-			JOIN rent_per_terms AS rpt ON c.rent_per_terms_id=rpt.id 
-			JOIN houses AS h ON c.house_id=h.id 
-			JOIN house_type AS ht ON h.house_type_id=ht.id
-			WHERE c.tenant_id={$tenant_id}";
+                JOIN tenants AS t ON c.tenant_id=t.id 
+                JOIN rent_per_terms AS rpt ON c.rent_per_terms_id=rpt.id 
+                JOIN houses AS h ON c.house_id=h.id 
+                JOIN house_type AS ht ON h.house_type_id=ht.id
+                WHERE c.tenant_id={$tenant_id}
+                ORDER BY c.id DESC";
 	$tenantContracts = executeJoinQuery($sql);
 }
 

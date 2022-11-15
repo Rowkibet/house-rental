@@ -54,8 +54,8 @@
                             <td><?php echo ($tenant['first_name'] . " " . $tenant['last_name'])?></td>
                             <td><?php echo $tenant['email']; ?></td>
                             <td><?php echo $tenant['phone_no']; ?></td>
-                            <td><button><a href="view.php?id=<?php echo $tenant['id']; ?>">view</a></button></td>
-                            <td><button><a href="edit.php?id=<?php echo $tenant['id']; ?>">update</a></button></td>
+                            <td><button><a href="view.php?tenant_id=<?php echo $tenant['id']; ?>">view</a></button></td>
+                            <td><button><a href="edit.php?tenant_id=<?php echo $tenant['id']; ?>">update</a></button></td>
                             <td><button><a href="index.php?del_id=<?php echo $tenant['id']; ?>">delete</a></button></td>
                         </tr>
                     <?php endforeach; ?>

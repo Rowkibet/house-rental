@@ -578,6 +578,8 @@ footer h1, footer h2 {
     border-radius: 5px;
     width: 100%;
     padding: 15px;
+    font-size: 1rem;
+    outline: none;
 }
 
 .form-control small {

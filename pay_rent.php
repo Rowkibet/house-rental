@@ -1,7 +1,8 @@
 <?php 
     include("path.php"); 
     include(ROOT_PATH . "\app\database\db.php");
-    include(ROOT_PATH . "\app\controllers\booking.php")
+    include(ROOT_PATH . "\app\controllers\payments.php");
+    include(ROOT_PATH . "/app/controllers/tenants.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +26,8 @@
     <div class="page-wrapper cart">
         <div class="cart-wrapper">
             <h2>Billing details</h2>
-            <p>Name: Rowland Koech</p>
-            <p>Phone Number: 0717105322</p>
+            <p>Name: <?php echo $first_name . " " . $last_name; ?></p>
+            <p>Phone Number: <?php echo $phone_no; ?></p>
             <table>
                 <thead>
                     <th>Invoice ID</th>
@@ -38,15 +39,17 @@
                     <th>Due Date</th>
                 </thead>
                 <tr>
-                    <td>9</td>
-                    <td>Apartment</td>
-                    <td>8000</td>
-                    <td>Monthly</td>
-                    <td>3000</td>
+                    <td><?php echo $invoice_id; ?></td>
+                    <td><?php echo $house_no; ?></td>
+                    <td><?php echo $house_type ?></td>
+                    <td><?php echo $total_rent; ?></td>
+                    <td><?php echo $balance; ?></td>
+                    <td><?php echo $amount; ?></td>
+                    <td><?php echo $due_date; ?></td>
                 </tr>
             </table>
-            <p class="amount">Pay Deposit: 3000</p>
-            <button class="small-btn"><a href="mpesaprocessor.php?amount=1&room_id=<?php echo $room_no ?>">Pay With MPESA</a></button>
+            <p class="amount">Pay Rent: <?php echo $amount; ?></p>
+            <button class="small-btn"><a href="pay_rent.php?rent=<?php echo $amount; ?>&contract_id=<?php echo $contract_id; ?>">Pay With MPESA</a></button>
         </div>
     </div>
     

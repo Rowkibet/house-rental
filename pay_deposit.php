@@ -1,7 +1,8 @@
 <?php 
     include("path.php"); 
     include(ROOT_PATH . "\app\database\db.php");
-    include(ROOT_PATH . "\app\controllers\payments.php")
+    include(ROOT_PATH . "\app\controllers\payments.php");
+    include(ROOT_PATH . "/app/controllers/tenants.php");
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,8 +26,8 @@
     <div class="page-wrapper cart">
         <div class="cart-wrapper">
             <h2>Billing details</h2>
-            <p>Name: Rowland Koech</p>
-            <p>Phone Number: 0717105322</p>
+            <p>Name: <?php echo $first_name . " " . $last_name; ?></p>
+            <p>Phone Number: <?php echo $phone_no; ?></p>
             <table>
                 <thead>
                     <th>House No</th>

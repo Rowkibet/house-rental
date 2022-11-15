@@ -21,8 +21,10 @@ $tenants = selectAll($table);
 $noOfTenants = count($tenants);
 
 // retrieve tenant details for specified tenant
-$tenant_id = $_SESSION['tenant_id'];
-$tenant = selectOne($table, ['id' => $tenant_id]);
+if(isset($_SESSION['tenant_id'])) {
+    $tenant_id = $_SESSION['tenant_id'];
+    $tenant = selectOne($table, ['id' => $tenant_id]);
+}
 
 // tenant registration
 if(isset($_POST['add-tenant']) || isset($_POST['register-btn'])) {
@@ -71,8 +73,8 @@ if(isset($_POST['add-tenant']) || isset($_POST['register-btn'])) {
 }
 
 // for view tenant details, update tenant & edit tenant details @ public pages
-if(isset($_GET['id'])) {
-    $id = $_GET['id'];
+if(isset($_GET['tenant_id'])) {
+    $id = $_GET['tenant_id'];
     $tenant = selectOne($table, ['id' => $id]);
 
     // display details on update form & view page

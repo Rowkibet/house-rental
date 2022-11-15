@@ -36,7 +36,7 @@
                         <p>House Rent: <?php echo $maisonette['rent']; ?></p>
                         <p>Status: <?php echo ($maisonette['is_available']) ? 'Available' : 'Occupied'; ?></p>
 
-                        <a href="single_house.php?id=<?php echo $maisonette['id']; ?>" class="btn book-btn"> Book Now</a>
+                        <a href="single_house.php?house_id=<?php echo $maisonette['id']; ?>" class="btn book-btn"> Book Now</a>
                     </div>
                 </div>
             <?php endforeach; ?>
@@ -57,7 +57,7 @@
                         <p>House Rent: <?php echo $apartment['rent']; ?></p>
                         <p>Status: <?php echo ($apartment['is_available']) ? 'Available' : 'Occupied';; ?></p>
 
-                        <a href="single_house.php?id=<?php echo $apartment['id']; ?>" class="btn book-btn"> Book Now</a>
+                        <a href="single_house.php?house_id=<?php echo $apartment['id']; ?>" class="btn book-btn"> Book Now</a>
                     </div>
                 </div>
             <?php endforeach; ?>

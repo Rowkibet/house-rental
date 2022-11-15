@@ -36,7 +36,7 @@
                     <p><?php echo $tenant['first_name'] . " " . $tenant['last_name']; ?></p>
                     <p>Tenant ID: <?php echo $tenant['id']; ?></p>
                     <p>House No: <?php echo isset($contract['house_id']) ? $contract['house_id'] : "n/a"; ?></p>
-                    <a href="<?php echo BASE_URL . '/edit_tenant.php?id=' . $tenant['id']; ?>">Edit Details</a>
+                    <a href="<?php echo BASE_URL . '/edit_tenant.php?tenant_id=' . $tenant['id']; ?>">Edit Details</a>
                 </div> 
             </div>
             <div class="user-more-info">

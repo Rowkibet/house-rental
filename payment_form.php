@@ -35,7 +35,7 @@
                     <label for="">Select House</label>
                     <select name="contract_id" id="">
                         <option value=""></option>
-                        <?php foreach($contracts as $key => $contract): ?>
+                        <?php foreach($tenantContracts as $key => $contract): ?>
                             <?php if(!empty($contract_id) && $contract_id == $contract['id']): ?>
                                 <option selected value="<?php echo $contract['id']; ?>"><?php echo $contract['house_id']; ?></option>
                             <?php else: ?>

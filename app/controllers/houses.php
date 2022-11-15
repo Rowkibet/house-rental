@@ -15,7 +15,8 @@ $house_deposit = '';
 
 // retrieve all house details 
 $sql = "SELECT h.*, ht.name AS houseType, ht.rent FROM houses AS h 
-        JOIN house_type AS ht ON h.house_type_id=ht.id";
+        JOIN house_type AS ht ON h.house_type_id=ht.id
+        ORDER BY h.id DESC";
 $houses = executeJoinQuery($sql);
 $noOfHouses = count($houses);
 
@@ -66,14 +67,26 @@ if(isset($_POST['add-house'])) {
     }
 }
 
-
 // for view house details & update house
-if(isset($_GET['id'])) {
-    $house_id = $_GET['id'];
+if(isset($_GET['id']) || isset($_GET['house_id'])) {
+    $house_id = isset($_GET['house_id']) ? $_GET['house_id'] : $_GET['id'];
     $sql = "SELECT h.*, ht.name AS houseType, ht.rent, ht.deposit FROM houses AS h 
             JOIN house_type AS ht ON h.house_type_id=ht.id
             WHERE h.id={$house_id}";
     $house = executeJoinQuery($sql);
+
+    // for homepage, if user not logged in, prompt log in
+    if(!isset($_SESSION['username'])) {
+        $_SESSION['message'] = 'Please log in first';
+        $_SESSION['type'] = 'error';  
+        header('location: ' .BASE_URL . '\login.php');
+    } 
+    // for homepage, generate error if house is occupied
+    else if($house[0]['is_available'] === 0 && isset($_GET['house_id'])) {
+        $_SESSION['message'] = 'House is already occupied';
+        $_SESSION['type'] = 'error';  
+        header('location: ' .BASE_URL . '\index.php');
+    }
 
     // display details on update form & view page
     $house_id = $house[0]['id'];
@@ -130,7 +143,7 @@ if(isset($_GET['del_id'])) {
     exit();
 }
 
-// room filter at rooms page
+// house filter at houses page
 if(isset($_POST['filter-house'])) {
     if($_POST['house_type'] === '2') {
         $houses = $maisonettes;
