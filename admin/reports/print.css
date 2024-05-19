@@ -1,0 +1,16 @@
+@media print {
+    body * {
+        visibility: hidden;
+    }
+
+    .table-wrapper, .table-wrapper * {
+        visibility: visible;
+    }
+
+    /* Adjust position of the table*/
+    .table-wrapper {
+        position: absolute;
+        left: 0;
+        top: 0;
+    }
+}

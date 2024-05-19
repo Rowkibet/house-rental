@@ -20,10 +20,10 @@ $sql = "SELECT h.*, ht.name AS houseType, ht.rent FROM houses AS h
 $houses = executeJoinQuery($sql);
 $noOfHouses = count($houses);
 
-// retrieve all house types - drop down menu
+// retrieve all house types - drop down menu (admin side)
 $house_types = selectAll('house_type');
 
-// retrieve all house details for Maisonettes
+// retrieve all house details for Maisonettes to display at homepage
 $sql = "SELECT h.*, ht.name AS houseType, ht.rent FROM houses AS h 
         JOIN house_type AS ht ON h.house_type_id=ht.id
         WHERE ht.id=2";

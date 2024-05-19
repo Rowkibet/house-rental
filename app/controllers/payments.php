@@ -1,5 +1,6 @@
 <?php
 include(ROOT_PATH . "/app/helpers/validatePayment.php");
+include(ROOT_PATH . "/app/helpers/validateFilter.php");
 
 $errors = array();
 $table = 'payments';
@@ -20,6 +21,10 @@ $house_type = '';
 $rent = '';
 $rent_per_terms = '';
 $deposit = '';
+
+$filterErrors = array();
+$selected_payments = array();
+$total_amount = 0;
 
 // retrieve all payment details
 $sql = "SELECT p.*, t.first_name, t.last_name, h.id AS house_id, i.balance, i.id AS invoice_id, i.due_date, pf.name AS paidFor FROM payments AS p 
@@ -153,7 +158,7 @@ if(isset($_POST['payment-form-btn'])) {
 	}
 }
 
-// Display rent invoice details in pay_rent.php page
+// Display rent & pinvoice details in pay_rent.php page
 if(isset($_GET['pform_amount'])) {
 	$contract_id = $_GET['pform_contract_id'];
 	$pform_amount = $_GET['pform_amount'];
@@ -222,4 +227,43 @@ if(isset($_GET['rent'])) {
 	$_SESSION['message'] = 'Payment Made Successfully';
 	$_SESSION['type'] = 'success';
 	header('location: ' .BASE_URL . '/user_profile.php');
+}
+
+// Filter for payment report in reports page
+if(isset($_POST['filter-report'])) {
+    $filterErrors = validateFilter($_POST);
+
+    if(count($filterErrors) === 0) {
+        $houseType_id = $_POST['house_type_id'];
+			$from_date = date("Y-m-d", strtotime($_POST['from_date']));
+			$to_date = date("Y-m-d", strtotime($_POST['to_date']));
+
+        if($houseType_id === 'all') {
+            $sql = "SELECT p.*, t.first_name, t.last_name, ht.name AS houseType FROM payments AS p 
+                    JOIN tenants AS t ON p.tenant_id=t.id 
+                    JOIN houses AS h ON p.house_id=h.id 
+                    JOIN house_type AS ht ON h.house_type_id=ht.id 
+                    WHERE p.payment_date BETWEEN '{$from_date}' AND '{$to_date}'";
+            $selected_payments = executeJoinQuery($sql);
+        } else {
+            $sql = "SELECT p.*, t.first_name, t.last_name, ht.name AS houseType FROM payments AS p 
+                    JOIN tenants AS t ON p.tenant_id=t.id 
+                    JOIN houses AS h ON p.house_id=h.id 
+                    JOIN house_type AS ht ON h.house_type_id=ht.id 
+                    WHERE ht.id={$houseType_id} AND 
+                    p.payment_date BETWEEN '{$from_date}' AND '{$to_date}'";
+            $selected_payments = executeJoinQuery($sql);
+        }
+
+        // values selected will persist after reload
+        $houseType_id = $_POST['house_type_id'];
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+
+    } else {
+        $houseType_id = $_POST['house_type_id'];
+        $from_date = $_POST['from_date'];
+        $to_date = $_POST['to_date'];
+    }
+
 }
